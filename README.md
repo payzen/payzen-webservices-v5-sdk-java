@@ -1,4 +1,4 @@
-![](https://img.shields.io/maven-central/v/payzen/payzen-webservices-v5-sdk-java.svg)
+![](https://img.shields.io/maven-central/v/eu.payzen.sdk/payzen-webservices-v5-sdk-java.svg)
 ![](https://img.shields.io/github/license/payzen/payzen-webservices-v5-sdk-java.svg)
 
 # Payzen SDK SOAP Web Services v5 in Java #
