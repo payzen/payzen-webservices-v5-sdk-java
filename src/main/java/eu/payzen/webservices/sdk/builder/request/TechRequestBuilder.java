@@ -25,6 +25,7 @@ import com.lyra.vads.ws.v5.TechRequest;
 public class TechRequestBuilder {
     private String browserUserAgent;
     private String browserAccept;
+    private String integrationType;
 
     public TechRequestBuilder browserUserAgent(String browserUserAgent) {
         this.browserUserAgent = browserUserAgent;
@@ -35,12 +36,18 @@ public class TechRequestBuilder {
         this.browserAccept = browserAccept;
         return this;
     }
+
+    public TechRequestBuilder integrationType(String integrationType) {
+        this.integrationType = integrationType;
+        return this;
+    }
     
     public TechRequest build() {
         TechRequest techRequest = new TechRequest();
         
         techRequest.setBrowserAccept(browserAccept);
         techRequest.setBrowserUserAgent(browserUserAgent);
+        techRequest.setIntegrationType(integrationType);
         
         return techRequest;
     }

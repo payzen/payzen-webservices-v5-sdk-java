@@ -22,30 +22,15 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.MessageContext;
 
+import com.lyra.vads.ws.v5.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lyra.vads.ws.v5.CancelPaymentResponse;
 import com.lyra.vads.ws.v5.CancelSubscriptionResponse.CancelSubscriptionResult;
-import com.lyra.vads.ws.v5.CardRequest;
-import com.lyra.vads.ws.v5.CommonRequest;
-import com.lyra.vads.ws.v5.CreatePayment;
-import com.lyra.vads.ws.v5.CreatePaymentResponse;
 import com.lyra.vads.ws.v5.CreateSubscriptionResponse.CreateSubscriptionResult;
 import com.lyra.vads.ws.v5.CreateTokenFromTransactionResponse.CreateTokenFromTransactionResult;
-import com.lyra.vads.ws.v5.GetPaymentDetailsResponse;
-import com.lyra.vads.ws.v5.GetPaymentUuidResponse;
 import com.lyra.vads.ws.v5.GetSubscriptionDetailsResponse.GetSubscriptionDetailsResult;
-import com.lyra.vads.ws.v5.LegacyTransactionKeyRequest;
-import com.lyra.vads.ws.v5.OrderRequest;
-import com.lyra.vads.ws.v5.PaymentAPI;
-import com.lyra.vads.ws.v5.PaymentRequest;
-import com.lyra.vads.ws.v5.QueryRequest;
 import com.lyra.vads.ws.v5.RefundPaymentResponse.RefundPaymentResult;
-import com.lyra.vads.ws.v5.SubscriptionRequest;
-import com.lyra.vads.ws.v5.ThreeDSMode;
-import com.lyra.vads.ws.v5.ThreeDSRequest;
-import com.lyra.vads.ws.v5.UpdatePaymentResponse;
 import com.lyra.vads.ws.v5.ValidatePaymentResponse.ValidatePaymentResult;
 
 import eu.payzen.webservices.sdk.client.ClientV5;
@@ -293,7 +278,7 @@ final class PaymentInstance {
 		QueryRequest queryRequest = new QueryRequest();
 		queryRequest.setUuid(uuidTransaction);
 
-		GetPaymentDetailsResponse.GetPaymentDetailsResult detailsResponse = api.getPaymentDetails(queryRequest);
+		GetPaymentDetailsResponse.GetPaymentDetailsResult detailsResponse = api.getPaymentDetails(queryRequest, new ExtendedResponseRequest());
 
 		ServiceResult serviceResult = new ServiceResult(detailsResponse);
 
@@ -740,7 +725,7 @@ final class PaymentInstance {
 		queryRequest.setUuid(uuidTransaction);
 
 		CreateTokenFromTransactionResult createTokenFromTransaction = api.createTokenFromTransaction(commonRequest,
-				queryRequest);
+				new CardRequest(), queryRequest);
 
 		return createTokenFromTransaction;
 	}
@@ -800,7 +785,7 @@ final class PaymentInstance {
 		QueryRequest queryRequest = new QueryRequest();
 		queryRequest.setOrderId(orderId);
 
-		GetPaymentDetailsResponse.GetPaymentDetailsResult detailsResponse = api.getPaymentDetails(queryRequest);
+		GetPaymentDetailsResponse.GetPaymentDetailsResult detailsResponse = api.getPaymentDetails(queryRequest, new ExtendedResponseRequest());
 
 		ServiceResult serviceResult = new ServiceResult(detailsResponse);
 

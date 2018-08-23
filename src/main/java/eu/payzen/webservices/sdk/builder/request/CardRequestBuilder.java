@@ -33,6 +33,9 @@ public class CardRequestBuilder {
     private String cardSecurityCode;
     private Date cardHolderBirthDay;
     private String paymentToken;
+    private String proofOfIdType;
+    private String proofOfIdNumber;
+    private String walletPayload;
 
     private CardRequestBuilder() {
     }
@@ -76,6 +79,21 @@ public class CardRequestBuilder {
         return this;
     }
 
+    public CardRequestBuilder proofOfIdType(String proofOfIdType) {
+        this.proofOfIdType = proofOfIdType;
+        return this;
+    }
+
+    public CardRequestBuilder proofOfIdNumber(String proofOfIdNumber) {
+        this.proofOfIdNumber = proofOfIdNumber;
+        return this;
+    }
+
+    public CardRequestBuilder walletPayload(String walletPayload) {
+        this.walletPayload = walletPayload;
+        return this;
+    }
+
     public CardRequest build() {
         CardRequest cardRequest = new CardRequest();
 
@@ -86,6 +104,9 @@ public class CardRequestBuilder {
         cardRequest.setCardSecurityCode(cardSecurityCode);
         cardRequest.setCardHolderBirthDay(BuilderUtils.date2XMLGregorianCalendar(cardHolderBirthDay));
         cardRequest.setPaymentToken(paymentToken);
+        cardRequest.setProofOfIdType(proofOfIdType);
+        cardRequest.setProofOfIdNumber(proofOfIdNumber);
+        //cardRequest.setWalletPayload(walletPayload);
 
         return cardRequest;
     }
