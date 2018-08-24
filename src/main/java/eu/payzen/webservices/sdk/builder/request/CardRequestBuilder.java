@@ -106,7 +106,7 @@ public class CardRequestBuilder {
         cardRequest.setPaymentToken(paymentToken);
         cardRequest.setProofOfIdType(proofOfIdType);
         cardRequest.setProofOfIdNumber(proofOfIdNumber);
-        //cardRequest.setWalletPayload(walletPayload);
+        cardRequest.setWalletPayload(walletPayload);
 
         return cardRequest;
     }
