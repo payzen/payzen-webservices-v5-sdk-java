@@ -10,17 +10,17 @@ To use this SDK in your Java project:
 
 If you use Maven or other software project management tool, you will find the dependency here:
 
-http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.0.6
+http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.0.7
 
 Instead, you can download manually the last version here:
 
-http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.0.6/payzen-ws-sdk-1.0.6.jar
+http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.0.6/payzen-ws-sdk-1.0.7.jar
 
 In this last case, you have to add manually the dependencies:
 
-- *commons-codec-1.10.jar*
+- *commons-codec-1.11.jar*
 - *commons-lang-2.6.jar*
-- *slf4j-api-1.7.12.jar*
+- *slf4j-api-1.7.25.jar*
 
 Once all the dependencies of application are resolved, it is necessary to set up the config file.
 
