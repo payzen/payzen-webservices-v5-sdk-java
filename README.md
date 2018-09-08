@@ -14,7 +14,7 @@ http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.0.7
 
 Instead, you can download manually the last version here:
 
-http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.0.6/payzen-ws-sdk-1.0.7.jar
+http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.0.7/payzen-ws-sdk-1.0.7.jar
 
 In this last case, you have to add manually the dependencies:
 
