@@ -15,12 +15,8 @@
  */
 package eu.payzen.webservices.sdk.builder;
 
-import com.lyra.vads.ws.v5.CardRequest;
-import com.lyra.vads.ws.v5.CommonRequest;
-import com.lyra.vads.ws.v5.CreatePayment;
-import com.lyra.vads.ws.v5.OrderRequest;
-import com.lyra.vads.ws.v5.PaymentRequest;
-import com.lyra.vads.ws.v5.ThreeDSRequest;
+import com.lyra.vads.ws.v5.*;
+
 import java.util.Date;
 import eu.payzen.webservices.sdk.util.BuilderUtils;
 
@@ -40,6 +36,9 @@ public class PaymentBuilder {
     PaymentRequest payment;
     CardRequest card;
     ThreeDSRequest threeDS;
+    CustomerRequest customer;
+    TechRequest tech;
+    ShoppingCartRequest shoppingCart;
 
     private PaymentBuilder() {
     }
@@ -88,6 +87,21 @@ public class PaymentBuilder {
         return this;
     }
 
+    public PaymentBuilder customer(CustomerRequest customer) {
+        this.customer = customer;
+        return this;
+    }
+
+    public PaymentBuilder tech(TechRequest tech) {
+        this.tech = tech;
+        return this;
+    }
+
+    public PaymentBuilder shoppingCart(ShoppingCartRequest shoppingCart) {
+        this.shoppingCart = shoppingCart;
+        return this;
+    }
+
     public CreatePayment buildCreate() {
         CreatePayment createPayment = new CreatePayment();
 
@@ -102,6 +116,9 @@ public class PaymentBuilder {
         createPayment.setPaymentRequest(payment);
         createPayment.setCardRequest(card);
         createPayment.setThreeDSRequest(threeDS);
+        createPayment.setCustomerRequest(customer);
+        createPayment.setShoppingCartRequest(shoppingCart);
+        createPayment.setTechRequest(tech);
 
         return createPayment;
     }
