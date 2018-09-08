@@ -15,26 +15,8 @@
  */
 package eu.payzen.webservices.sdk;
 
-import com.lyra.vads.ws.v5.AuthorizationResponse;
-import com.lyra.vads.ws.v5.CancelPaymentResponse;
-import com.lyra.vads.ws.v5.CaptureResponse;
-import com.lyra.vads.ws.v5.CardResponse;
-import com.lyra.vads.ws.v5.CommonResponse;
-import com.lyra.vads.ws.v5.CreatePaymentResponse;
-import com.lyra.vads.ws.v5.CustomerResponse;
-import com.lyra.vads.ws.v5.ExtraResponse;
-import com.lyra.vads.ws.v5.FraudManagementResponse;
-import com.lyra.vads.ws.v5.GetPaymentDetailsResponse;
-import com.lyra.vads.ws.v5.GetPaymentUuidResponse;
-import com.lyra.vads.ws.v5.MarkResponse;
-import com.lyra.vads.ws.v5.OrderResponse;
-import com.lyra.vads.ws.v5.PaymentResponse;
+import com.lyra.vads.ws.v5.*;
 import com.lyra.vads.ws.v5.RefundPaymentResponse.RefundPaymentResult;
-import com.lyra.vads.ws.v5.ShoppingCartResponse;
-import com.lyra.vads.ws.v5.SubscriptionResponse;
-import com.lyra.vads.ws.v5.ThreeDSResponse;
-import com.lyra.vads.ws.v5.TokenResponse;
-import com.lyra.vads.ws.v5.UpdatePaymentResponse;
 import eu.payzen.webservices.sdk.util.Config;
 
 /**
@@ -130,6 +112,24 @@ public final class ServiceResult {
          threeDSResponse = refundPaymentResult.getThreeDSResponse();
          extraResponse = refundPaymentResult.getExtraResponse();
          fraudManagementResponse = refundPaymentResult.getFraudManagementResponse();
+    }
+
+    public ServiceResult(ValidatePaymentResponse.ValidatePaymentResult validatePaymentResult) {
+        commonResponse = validatePaymentResult.getCommonResponse();
+    }
+
+    public ServiceResult(CreateTokenFromTransactionResponse.CreateTokenFromTransactionResult createTokenFromTransactionResult) {
+        commonResponse = createTokenFromTransactionResult.getCommonResponse();
+        paymentResponse = createTokenFromTransactionResult.getPaymentResponse();
+        orderResponse = createTokenFromTransactionResult.getOrderResponse();
+        cardResponse = createTokenFromTransactionResult.getCardResponse();
+        authorizationResponse = createTokenFromTransactionResult.getAuthorizationResponse();
+        captureResponse = createTokenFromTransactionResult.getCaptureResponse();
+        customerResponse = createTokenFromTransactionResult.getCustomerResponse();
+        markResponse = createTokenFromTransactionResult.getMarkResponse();
+        threeDSResponse = createTokenFromTransactionResult.getThreeDSResponse();
+        extraResponse = createTokenFromTransactionResult.getExtraResponse();
+        fraudManagementResponse = createTokenFromTransactionResult.getFraudManagementResponse();
     }
 
     public CommonResponse getCommonResponse() {

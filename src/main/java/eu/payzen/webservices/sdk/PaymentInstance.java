@@ -671,63 +671,73 @@ final class PaymentInstance {
 	 *            unique identifier of the transaction
 	 * @return result with all the response objects
 	 */
-	ValidatePaymentResult validatePayment(Map<String, String> config, String uuidTransaction, String comment) {
+	ServiceResult validatePayment(Map<String, String> config, String uuidTransaction, String comment) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
 		QueryRequest queryRequest = new QueryRequest();
 		queryRequest.setUuid(uuidTransaction);
 
 		CommonRequest commonRequest = new CommonRequest();
-		if (comment != null && !comment.isEmpty())
-			commonRequest.setComment(comment);
+		commonRequest.setComment(comment);
 
 		ValidatePaymentResult validatePayment = api.validatePayment(commonRequest, queryRequest);
+		ServiceResult serviceResult = new ServiceResult(validatePayment);
 
-		return validatePayment;
+		return serviceResult;
 	}
 
 	/**
-	 * 
+	 * Refund a payment by its transaction UUID <p>
+     *
 	 * @param config
-	 * @param uuidTransaction
-	 * @param paymentRequest
-	 * @return
+	 * @param uuidTransaction unique identifier of the transaction
+	 * @param amount Amount to refund in cents
+     * @param currency used currency in ISO 4217
+     * @param comment commentary to add to history
+	 * @return result with all the response objects
 	 */
-	ServiceResult refund(Map<String, String> config, String uuidTransaction, PaymentRequest paymentRequest) {
+	ServiceResult refund(Map<String, String> config, String uuidTransaction, long amount, int currency, String comment) {
 
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
 
 		QueryRequest queryRequest = new QueryRequest();
 		queryRequest.setUuid(uuidTransaction);
 
-		RefundPaymentResult refundPayment = api.refundPayment(new CommonRequest(), paymentRequest, queryRequest);
+		PaymentRequest paymentRequest = new PaymentRequest();
+		paymentRequest.setAmount(amount);
+		paymentRequest.setCurrency(currency);
+
+		CommonRequest commonRequest = new CommonRequest();
+		commonRequest.setComment(comment);
+
+		RefundPaymentResult refundPayment = api.refundPayment(commonRequest, paymentRequest, queryRequest);
 		ServiceResult serviceResult = new ServiceResult(refundPayment);
 		return serviceResult;
 	}
 
 	/**
-	 * Create a CreditCard token from an existing transaction using the UUID of
-	 * the transaction
-	 * <p>
+	 * Create a token using the card data an existing transaction using the UUID of the transaction<p>
 	 * 
 	 * Please read official documentation for more detailed information about
 	 * parameter content.
 	 * 
 	 * @param uuidTransaction
 	 *            unique identifier of the transaction
-	 * @param commonRequest
+	 * @param comment
 	 *            commonRequest parameters
 	 * @return result with all the response objects
 	 */
-	CreateTokenFromTransactionResult createTokenFromTransaction(Map<String, String> config, String uuidTransaction,
-			CommonRequest commonRequest) {
+	ServiceResult createTokenFromTransaction(Map<String, String> config, String uuidTransaction,
+			String comment) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
 		QueryRequest queryRequest = new QueryRequest();
 		queryRequest.setUuid(uuidTransaction);
+		CommonRequest commonRequest = new CommonRequest();
+		commonRequest.setComment(comment);
 
 		CreateTokenFromTransactionResult createTokenFromTransaction = api.createTokenFromTransaction(commonRequest,
 				new CardRequest(), queryRequest);
-
-		return createTokenFromTransaction;
+        ServiceResult serviceResult = new ServiceResult(createTokenFromTransaction);
+        return serviceResult;
 	}
 
 	/**

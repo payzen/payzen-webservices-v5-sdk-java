@@ -18,14 +18,8 @@ package eu.payzen.webservices.sdk;
 import java.util.Date;
 import java.util.Map;
 
+import com.lyra.vads.ws.v5.*;
 import com.lyra.vads.ws.v5.CancelSubscriptionResponse.CancelSubscriptionResult;
-import com.lyra.vads.ws.v5.CardRequest;
-import com.lyra.vads.ws.v5.CommonRequest;
-import com.lyra.vads.ws.v5.CreatePayment;
-import com.lyra.vads.ws.v5.OrderRequest;
-import com.lyra.vads.ws.v5.PaymentRequest;
-import com.lyra.vads.ws.v5.QueryRequest;
-import com.lyra.vads.ws.v5.SubscriptionRequest;
 import com.lyra.vads.ws.v5.CreateSubscriptionResponse.CreateSubscriptionResult;
 import com.lyra.vads.ws.v5.CreateTokenFromTransactionResponse.CreateTokenFromTransactionResult;
 import com.lyra.vads.ws.v5.GetSubscriptionDetailsResponse.GetSubscriptionDetailsResult;
@@ -79,7 +73,7 @@ public final class Payment {
      * 
      * @param orderId Optional, null is none. The order Id. 
      * @param amount Amount of the payment in cents
-     * @param currency used currency 
+     * @param currency used currency in ISO 4217
      * @param cardNumber card number
      * @param expMonth expiration month
      * @param expYear expiration year
@@ -99,7 +93,7 @@ public final class Payment {
      * 
      * @param orderId Optional, null is none. The order Id. 
      * @param amount Amount of the payment in cents
-     * @param currency used currency 
+     * @param currency used currency in ISO 4217
      * @param cardNumber card number
      * @param expMonth expiration month
      * @param expYear expiration year
@@ -127,7 +121,7 @@ public final class Payment {
     }
     
     /**
-     * Creates a payment request using the createPayment object <p>
+     * Creates a payment request using the {@link CreatePayment} object <p>
      * 
      * Please read official documentation for more detailed information about parameter content.
      * 
@@ -298,45 +292,59 @@ public final class Payment {
      * @param uuidTransaction unique identifier of the transaction
      * @param amount the new amount for the transaction
      * @param currency the currency of the transaction
+     * @param response callback handler to work with the response
      * @param config OPTIONAL, allows to override configuration at runtime
      * @return result with all the response objects
      */
     @SafeVarargs
-	public static ServiceResult update(String uuidTransaction, long amount, int currency, Map<String, String> ... config) {
+	public static ServiceResult update(String uuidTransaction, long amount, int currency, ResponseHandler response, Map<String, String> ... config) {
         return getInstance().updateSimple((config.length>0)?config[0]:null, uuidTransaction, amount, currency);
     }
 
     /**
      * Updates an existing transaction using the UUID of the transaction<p>
-     * 
+     *
      * Please read official documentation for more detailed information about parameter content.
-     * 
+     *
      * @param uuidTransaction unique identifier of the transaction
-     * @param captureDate expected capture date
+     * @param amount the new amount for the transaction
+     * @param currency the currency of the transaction
      * @param config OPTIONAL, allows to override configuration at runtime
      * @return result with all the response objects
      */
     @SafeVarargs
-	public static ServiceResult update(String uuidTransaction, Date captureDate, Map<String, String> ... config) {
+    public static ServiceResult update(String uuidTransaction, long amount, int currency, Map<String, String> ... config) {
+        return getInstance().updateSimple((config.length>0)?config[0]:null, uuidTransaction, amount, currency);
+    }
+
+    /**
+     * Updates an existing transaction using the {@link UpdatePayment} object<p>
+     * 
+     * Please read official documentation for more detailed information about parameter content.
+     * 
+     * @paramcreatePaymentRequest complex object with all the parameters for service call
+     * @param response callback handler to work with the response
+     * @param config OPTIONAL, allows to override configuration at runtime
+     * @return result with all the response objects
+     */
+    @SafeVarargs
+	public static ServiceResult update(String uuidTransaction, Date captureDate, ResponseHandler response,  Map<String, String> ... config) {
         return getInstance().updateSimple((config.length>0)?config[0]:null, uuidTransaction, captureDate);
     }
-    
+
     /**
-     * Updates an existing transaction using the UUID of the transaction<p>
-     * 
+     * Validate an existing transaction using the UUID of the transaction<p>
+     *
      * Please read official documentation for more detailed information about parameter content.
-     * 
-     * DEPRECATED: this method has been created without using builder (as the other methods) and will be removed/replaced in 
-     * future versions. DO NOT USE IT.
-     * 
+     *
      * @param uuidTransaction unique identifier of the transaction
-     * @param paymentRequest paymentRequest parameters to update
+     * @param comment commentary to add to history
      * @param config OPTIONAL, allows to override configuration at runtime
      * @return result with all the response objects
      */
     @SafeVarargs
-	public static ServiceResult update(String uuidTransaction, PaymentRequest paymentRequest, Map<String, String> ... config) {
-        return getInstance().updateSimple((config.length>0)?config[0]:null, uuidTransaction, paymentRequest);
+    public static ServiceResult validate(String uuidTransaction, String comment, Map<String, String> ... config) {
+        return getInstance().validatePayment((config.length>0)?config[0]:null, uuidTransaction, comment);
     }
     
     /**
@@ -346,108 +354,47 @@ public final class Payment {
      * 
      * @param uuidTransaction unique identifier of the transaction
      * @param comment commentary to add to history
+     * @param response callback handler to work with the response
      * @param config OPTIONAL, allows to override configuration at runtime
      * @return result with all the response objects
      */
     @SafeVarargs
-	public static ValidatePaymentResult validatePayment(String uuidTransaction, String comment, Map<String, String> ... config) {
+	public static ServiceResult validate(String uuidTransaction, String comment, ResponseHandler response, Map<String, String> ... config) {
         return getInstance().validatePayment((config.length>0)?config[0]:null, uuidTransaction, comment);
     }
     
     /**
-     * Create a CreditCard token from an existing transaction using the UUID of the transaction<p>
+     * Create a token using the card data an existing transaction using the UUID of the transaction<p>
      * 
      * Please read official documentation for more detailed information about parameter content.
      * 
-     * DEPRECATED: this method has been created without using builder (as the other methods) and will be removed/replaced in 
-     * future versions. DO NOT USE IT.
-     * 
      * @param uuidTransaction unique identifier of the transaction
-     * @param commonRequest commonRequest parameters
+     * @param comment commentary to add to history
      * @param config OPTIONAL, allows to override configuration at runtime
      * @return result with all the response objects
      */
     @SafeVarargs
     @Deprecated
-	public static CreateTokenFromTransactionResult createTokenFromTransaction(String uuidTransaction, CommonRequest commonRequest, Map<String, String> ... config) {
-        return getInstance().createTokenFromTransaction((config.length>0)?config[0]:null, uuidTransaction, commonRequest);
+	public static ServiceResult createToken(String uuidTransaction, String comment, Map<String, String> ... config) {
+        return getInstance().createTokenFromTransaction((config.length>0)?config[0]:null, uuidTransaction, comment);
     }
     
     /**
-     * Refund transaction <p>
+     * Refund a payment using the transaction UUID <p>
      * 
      * Please read official documentation for more detailed information about parameter content.
-     * 
-     * DEPRECATED: this method has been created without using builder (as the other methods) and will be removed/replaced in 
-     * future versions. DO NOT USE IT.
-     * 
+     *
      * @param uuidTransaction unique identifier of the transaction
-     * @param paymentRequest commonRequest parameters
+     * @param amount Amount to refund in cents
+     * @param currency used currency in ISO 4217
+     * @param comment commentary to add to history
      * @param config OPTIONAL, allows to override configuration at runtime
      * @return result with all the response objects
      */
     @SafeVarargs
     @Deprecated
-	public static ServiceResult refund(String uuidTransaction, PaymentRequest paymentRequest, Map<String, String> ... config) {
-        return getInstance().refund((config.length>0)?config[0]:null, uuidTransaction, paymentRequest);
-    }
-    
-    /**
-     * Create a subscription <p>
-     * 
-     * Please read official documentation for more detailed information about parameter content.<p>
-     * 
-     * DEPRECATED: this method has been created without using builder (as the other methods) and will be removed/replaced in 
-     * future versions. DO NOT USE IT.
-     * 
-     * @param commonRequest the common request data
-     * @param orderRequest the order request data
-     * @param subscriptionRequest the subscription request data
-     * @param cardRequest the card request data
-     * @param config OPTIONAL, allows to override configuration at runtime
-     * @return result with all the response objects
-     */
-    @SafeVarargs
-    @Deprecated
-	public static CreateSubscriptionResult createSubscription(CommonRequest commonRequest, OrderRequest orderRequest, SubscriptionRequest subscriptionRequest, CardRequest cardRequest, Map<String, String> ... config) {
-        return getInstance().createSubscription((config.length>0)?config[0]:null, commonRequest, orderRequest, subscriptionRequest, cardRequest);
-    }
-    
-    /**
-     * Get a subscription <p>
-     * 
-     * Please read official documentation for more detailed information about parameter content.<p>
-     * 
-     * DEPRECATED: this method has been created without using builder (as the other methods) and will be removed/replaced in 
-     * future versions. DO NOT USE IT.
-     * 
-     * @param queryRequest the query request data
-     * @param config OPTIONAL, allows to override configuration at runtime
-     * @return result with all the response objects
-     */
-    @SafeVarargs
-    @Deprecated
-	public static GetSubscriptionDetailsResult getSubscriptionDetails(QueryRequest queryRequest, Map<String, String> ... config) {
-        return getInstance().getSubscriptionDetails((config.length>0)?config[0]:null, queryRequest);
-    }
-    
-    /**
-     * Cancel a subscription <p>
-     * 
-     * Please read official documentation for more detailed information about parameter content.<p>
-     * 
-     * DEPRECATED: this method has been created without using builder (as the other methods) and will be removed/replaced in 
-     * future versions. DO NOT USE IT.
-     *  
-     * @param commonRequest the common data
-     * @param queryRequest the query request data
-     * @param config OPTIONAL, allows to override configuration at runtime
-     * @return result with all the response objects
-     */
-    @SafeVarargs
-    @Deprecated
-	public static CancelSubscriptionResult cancelSubscription(CommonRequest commonRequest, QueryRequest queryRequest, Map<String, String> ... config) {
-        return getInstance().cancelSubscription((config.length>0)?config[0]:null, commonRequest, queryRequest);
+	public static ServiceResult refund(String uuidTransaction, long amount, int currency, String comment, Map<String, String> ... config) {
+        return getInstance().refund((config.length>0)?config[0]:null, uuidTransaction, amount, currency, comment);
     }
     
 }
