@@ -169,5 +169,21 @@
 			<artifactId>payzen-ws-stubs</artifactId>
 			<version>1.0.3</version>
 		</dependency>
-	</dependencies>
+
+		<!-- This dependencies have to be added because of Java 9+ deprecation of
+		modules considered "Java EE"
+		https://stackoverflow.com/questions/48204141/replacements-for-deprecated-jpms-modules-with-java-ee-apis/48204154#48204154
+		If not added, tests will not work if the runtime is Java 9 or more recent
+		-->
+		<dependency>
+			<groupId>com.sun.activation</groupId>
+			<artifactId>javax.activation</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-ri</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+    </dependencies>
 </project>
