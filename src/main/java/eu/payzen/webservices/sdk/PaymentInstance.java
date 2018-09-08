@@ -75,8 +75,7 @@ final class PaymentInstance {
 	 *
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#create(java.lang.String, long, int, java.lang.String, int,
-	 *      int, java.lang.String)
+	 * @see Payment#create(String, long, int, String, int, int, String, Map[])
 	 */
 	ServiceResult createSimple(Map<String, String> config, String orderId, long amount, int currency, String cardNumber,
 			int expMonth, int expYear, String cvvCode) {
@@ -132,9 +131,7 @@ final class PaymentInstance {
 	 *
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#create(java.lang.String, long, int, java.lang.String, int,
-	 *      int, java.lang.String,
-	 *      ResponseHandler)
+	 * @see Payment#create(String, long, int, String, int, int, String, ResponseHandler, Map[])
 	 */
 	ServiceResult createSimple(Map<String, String> config, String orderId, long amount, int currency, String cardNumber,
 			int expMonth, int expYear, String cvvCode, ResponseHandler response) {
@@ -156,7 +153,7 @@ final class PaymentInstance {
 	 *            complex object with all the parameters for service call
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#create(com.lyra.vads.ws.v5.CreatePayment)
+	 * @see Payment#create(CreatePayment, Map[])
 	 */
 	ServiceResult create(Map<String, String> config, CreatePayment createPaymentRequest) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -185,8 +182,7 @@ final class PaymentInstance {
 	 *            callback handler to work with the response
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#create(com.lyra.vads.ws.v5.CreatePayment,
-	 *      ResponseHandler)
+	 * @see Payment#create(CreatePayment, ResponseHandler, Map[])
 	 */
 	ServiceResult create(Map<String, String> config, CreatePayment createPaymentRequest, ResponseHandler response) {
 		ServiceResult serviceResult = create(config, createPaymentRequest);
@@ -203,13 +199,13 @@ final class PaymentInstance {
 	 * Please read official documentation for more detailed information about
 	 * parameters.
 	 *
-	 * @param paRes
+	 * @param paREs
 	 *            Response from ACS
 	 * @param MD
 	 *            Payment session information
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#create(java.lang.String, java.lang.String)
+	 * @see Payment#create(String, String, Map[])
 	 */
 	ServiceResult create3DS(Map<String, String> config, String paREs, String MD) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -240,7 +236,7 @@ final class PaymentInstance {
 	 * Please read official documentation for more detailed information about
 	 * parameters.
 	 *
-	 * @param paRes
+	 * @param paREs
 	 *            Response from ACS
 	 * @param MD
 	 *            Payment session information
@@ -248,8 +244,7 @@ final class PaymentInstance {
 	 *            callback handler to work with the response
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#create(java.lang.String, java.lang.String,
-	 *      ResponseHandler)
+	 * @see Payment#create(String, String, ResponseHandler, Map[])
 	 */
 	ServiceResult create3DS(Map<String, String> config, String paREs, String MD, ResponseHandler response) {
 		ServiceResult serviceResult = create3DS(config, paREs, MD);
@@ -271,7 +266,7 @@ final class PaymentInstance {
 	 *            unique identifier of the transaction
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String)
+	 * @see Payment#details(String, Map[])
 	 */
 	ServiceResult detailsSimple(Map<String, String> config, String uuidTransaction) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -299,8 +294,7 @@ final class PaymentInstance {
 	 *            callback handler to work with the response
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String,
-	 *      ResponseHandler)
+	 * @see Payment#details(String, ResponseHandler, Map[])
 	 */
 	ServiceResult detailsSimple(Map<String, String> config, String uuidTransaction, ResponseHandler response) {
 		ServiceResult serviceResult = detailsSimple(config, uuidTransaction);
@@ -326,7 +320,7 @@ final class PaymentInstance {
 	 *            case of simple payment
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String, java.util.Date, int)
+	 * @see Payment#details(String, Date, int, Map[])
 	 */
 	ServiceResult detailsByFind(Map<String, String> config, String transactionId, Date creationDate,
 			int sequenceNumber) {
@@ -367,8 +361,7 @@ final class PaymentInstance {
 	 *            callback handler to work with the response
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String, java.util.Date, int,
-	 *      ResponseHandler)
+	 * @see Payment#details(String, Date, int, ResponseHandler, Map[])
 	 */
 	ServiceResult detailsByFind(Map<String, String> config, String transactionId, Date creationDate, int sequenceNumber,
 			ResponseHandler response) {
@@ -390,7 +383,7 @@ final class PaymentInstance {
 	 *            unique identifier of the transaction
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String)
+	 * @see Payment#details(String, Map[])
 	 */
 	ServiceResult cancelSimple(Map<String, String> config, String uuidTransaction) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -417,8 +410,7 @@ final class PaymentInstance {
 	 *            callback handler to work with the response
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String,
-	 *      ResponseHandler)
+	 * @see Payment#details(String, ResponseHandler, Map[])
 	 */
 	ServiceResult cancelSimple(Map<String, String> config, String uuidTransaction, ResponseHandler response) {
 		ServiceResult serviceResult = cancelSimple(config, uuidTransaction);
@@ -444,7 +436,7 @@ final class PaymentInstance {
 	 *            case of simple payment
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String, java.util.Date, int)
+	 * @see Payment#cancel(String, Date, int, Map[])
 	 */
 	ServiceResult cancelByFind(Map<String, String> config, String transactionId, Date creationDate,
 			int sequenceNumber) {
@@ -485,7 +477,7 @@ final class PaymentInstance {
 	 *            callback handler to work with the response
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String, java.util.Date, int,
+	 * @see Payment#cancel(String, Date, int, ResponseHandler, Map[])
 	 *      ResponseHandler)
 	 */
 	ServiceResult cancelByFind(Map<String, String> config, String transactionId, Date creationDate, int sequenceNumber,
@@ -511,7 +503,7 @@ final class PaymentInstance {
 	 * 
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String)
+	 * @see Payment#update(String, long, int, Map[])
 	 */
 	ServiceResult updateSimple(Map<String, String> config, String uuidTransaction, long amount, int currency) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -544,107 +536,9 @@ final class PaymentInstance {
 	 * 
 	 * @return result with all the response objects
 	 *
-	 * @see Payment#details(java.lang.String)
+	 * @see Payment#update(String, Date, ResponseHandler, Map[])
 	 */
 	ServiceResult updateSimple(Map<String, String> config, String uuidTransaction, Date captureDate) {
-		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
-		QueryRequest queryRequest = new QueryRequest();
-		queryRequest.setUuid(uuidTransaction);
-
-		PaymentRequest paymentRequest = new PaymentRequest();
-		paymentRequest.setExpectedCaptureDate(BuilderUtils.date2XMLGregorianCalendar(captureDate));
-
-		UpdatePaymentResponse.UpdatePaymentResult updateResponse = api.updatePayment(new CommonRequest(), queryRequest,
-				paymentRequest);
-
-		ServiceResult serviceResult = new ServiceResult(updateResponse);
-
-		return serviceResult;
-	}
-
-	/**
-	 * Updates an existing transaction using the UUID of the transaction
-	 * <p>
-	 *
-	 * Please read official documentation for more detailed information about
-	 * parameter content.
-	 *
-	 * @param uuidTransaction
-	 *            unique identifier of the transaction
-	 * @param paymentRequest
-	 *            payment request parameters to update
-	 * 
-	 * @return result with all the response objects
-	 *
-	 * @see Payment#details(java.lang.String)
-	 */
-	ServiceResult updateSimple(Map<String, String> config, String uuidTransaction, PaymentRequest paymentRequest) {
-		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
-		QueryRequest queryRequest = new QueryRequest();
-		queryRequest.setUuid(uuidTransaction);
-
-		UpdatePaymentResponse.UpdatePaymentResult updateResponse = api.updatePayment(new CommonRequest(), queryRequest,
-				paymentRequest);
-
-		ServiceResult serviceResult = new ServiceResult(updateResponse);
-
-		return serviceResult;
-	}
-
-	/**
-	 * Updates an existing transaction using the UUID of the transaction
-	 * <p>
-	 *
-	 * Please read official documentation for more detailed information about
-	 * parameter content.
-	 *
-	 * @param uuidTransaction
-	 *            unique identifier of the transaction
-	 * @param amount
-	 *            the new amount of the transaction
-	 * @param response
-	 *            callback handler to work with the response
-	 * @return result with all the response objects
-	 *
-	 * @see Payment#details(java.lang.String)
-	 */
-	ServiceResult updateSimple(Map<String, String> config, String uuidTransaction, long amount, int currency,
-			ResponseHandler response) {
-		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
-		QueryRequest queryRequest = new QueryRequest();
-		queryRequest.setUuid(uuidTransaction);
-
-		PaymentRequest paymentRequest = new PaymentRequest();
-		paymentRequest.setAmount(amount);
-		paymentRequest.setCurrency(currency);
-
-		UpdatePaymentResponse.UpdatePaymentResult updateResponse = api.updatePayment(new CommonRequest(), queryRequest,
-				paymentRequest);
-
-		ServiceResult serviceResult = new ServiceResult(updateResponse);
-
-		return serviceResult;
-	}
-
-	/**
-	 * Updates an existing transaction using the UUID of the transaction
-	 * <p>
-	 *
-	 * Please read official documentation for more detailed information about
-	 * parameter content.
-	 *
-	 * @param uuidTransaction
-	 *            unique identifier of the transaction
-	 * @param captureDate
-	 *            expected capture date
-	 * @param response
-	 *            callback handler to work with the response
-	 * @return result with all the response objects
-	 *
-	 * @see Payment#details(java.lang.String)
-	 */
-	ServiceResult updateSimple(Map<String, String> config, String uuidTransaction, Date captureDate,
-			ResponseHandler response) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
 		QueryRequest queryRequest = new QueryRequest();
 		queryRequest.setUuid(uuidTransaction);
@@ -670,6 +564,7 @@ final class PaymentInstance {
 	 * @param uuidTransaction
 	 *            unique identifier of the transaction
 	 * @return result with all the response objects
+     * @see Payment#validate(String, String, Map[])
 	 */
 	ServiceResult validatePayment(Map<String, String> config, String uuidTransaction, String comment) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -694,7 +589,8 @@ final class PaymentInstance {
      * @param currency used currency in ISO 4217
      * @param comment commentary to add to history
 	 * @return result with all the response objects
-	 */
+     * @see Payment#refund(String, long, int, String, Map[])
+     */
 	ServiceResult refund(Map<String, String> config, String uuidTransaction, long amount, int currency, String comment) {
 
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -725,7 +621,8 @@ final class PaymentInstance {
 	 * @param comment
 	 *            commonRequest parameters
 	 * @return result with all the response objects
-	 */
+     * @see Payment#createToken(String, String, Map[])
+     */
 	ServiceResult createTokenFromTransaction(Map<String, String> config, String uuidTransaction,
 			String comment) {
 		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
@@ -738,84 +635,6 @@ final class PaymentInstance {
 				new CardRequest(), queryRequest);
         ServiceResult serviceResult = new ServiceResult(createTokenFromTransaction);
         return serviceResult;
-	}
-
-	/**
-	 * 
-	 * @param config
-	 * @param commonRequest
-	 * @param orderRequest
-	 * @param subscriptionRequest
-	 * @param cardRequest
-	 * @return
-	 */
-	CreateSubscriptionResult createSubscription(Map<String, String> config, CommonRequest commonRequest,
-			OrderRequest orderRequest, SubscriptionRequest subscriptionRequest, CardRequest cardRequest) {
-		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
-		CreateSubscriptionResult createSubscription = api.createSubscription(commonRequest, orderRequest,
-				subscriptionRequest, cardRequest);
-		return createSubscription;
-	}
-
-	/**
-	 * 
-	 * @param config
-	 * @param queryRequest
-	 * @return
-	 */
-	GetSubscriptionDetailsResult getSubscriptionDetails(Map<String, String> config, QueryRequest queryRequest) {
-		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
-		GetSubscriptionDetailsResult subscriptionDetails = api.getSubscriptionDetails(queryRequest);
-		return subscriptionDetails;
-	}
-
-	/**
-	 * 
-	 * @param config
-	 * @param commonRequest
-	 * @param queryRequest
-	 * @return
-	 */
-	CancelSubscriptionResult cancelSubscription(Map<String, String> config, CommonRequest commonRequest,
-			QueryRequest queryRequest) {
-		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
-		CancelSubscriptionResult cancelSubscription = api.cancelSubscription(commonRequest, queryRequest);
-		return cancelSubscription;
-	}
-
-	/**
-	 * 
-	 * @param config
-	 * @param orderId
-	 * @return
-	 */
-	// TODO: not used for the moment
-	ServiceResult details(Map<String, String> config, String orderId) {
-		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
-		QueryRequest queryRequest = new QueryRequest();
-		queryRequest.setOrderId(orderId);
-
-		GetPaymentDetailsResponse.GetPaymentDetailsResult detailsResponse = api.getPaymentDetails(queryRequest, new ExtendedResponseRequest());
-
-		ServiceResult serviceResult = new ServiceResult(detailsResponse);
-
-		return serviceResult;
-	}
-
-	/**
-	 * 
-	 * @param config
-	 * @param orderId
-	 * @param response
-	 * @return
-	 */
-	// TODO: not used for the moment
-	ServiceResult details(Map<String, String> config, String orderId, ResponseHandler response) {
-		ServiceResult serviceResult = details(config, orderId);
-
-		handleResponse(response, serviceResult);
-
-		return serviceResult;
 	}
 
 	// Handle response in callback way

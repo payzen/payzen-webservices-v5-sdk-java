@@ -374,7 +374,6 @@ public final class Payment {
      * @return result with all the response objects
      */
     @SafeVarargs
-    @Deprecated
 	public static ServiceResult createToken(String uuidTransaction, String comment, Map<String, String> ... config) {
         return getInstance().createTokenFromTransaction((config.length>0)?config[0]:null, uuidTransaction, comment);
     }
@@ -392,7 +391,6 @@ public final class Payment {
      * @return result with all the response objects
      */
     @SafeVarargs
-    @Deprecated
 	public static ServiceResult refund(String uuidTransaction, long amount, int currency, String comment, Map<String, String> ... config) {
         return getInstance().refund((config.length>0)?config[0]:null, uuidTransaction, amount, currency, comment);
     }
