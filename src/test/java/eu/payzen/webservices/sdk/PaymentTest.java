@@ -381,9 +381,6 @@ public class PaymentTest {
     }
 
     private boolean checkConfig() {
-        if ("[NOT SET]".equals(Config.getConfig().getProperty("shopId"))) {
-            return false;
-        }
-        return true;
+        return !"[NOT SET]".equals(Config.getConfig().getProperty("shopId"));
     }
 }

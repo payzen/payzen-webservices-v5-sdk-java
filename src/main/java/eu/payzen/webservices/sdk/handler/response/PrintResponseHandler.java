@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class PrintResponseHandler implements ResponseHandler {
 
-    public void handle(ServiceResult response) throws Exception {
+    public void handle(ServiceResult response) {
         System.out.println("Response Code: " + response.getCommonResponse().getResponseCode());
         System.out.println("Response Code Detail: " + response.getCommonResponse().getResponseCodeDetail());
         
