@@ -26,8 +26,8 @@ import java.util.List;
  */
 public class OrderRequestBuilder {
 
-    protected String orderId;
-    protected List<ExtInfo> extInfo;
+    private String orderId;
+    private List<ExtInfo> extInfo;
 
     private OrderRequestBuilder() {
     }
