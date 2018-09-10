@@ -364,10 +364,68 @@ final class PaymentInstance {
 	 * @see Payment#details(String, Date, int, ResponseHandler, Map[])
 	 */
 	ServiceResult detailsByFind(Map<String, String> config, String transactionId, Date creationDate, int sequenceNumber,
-			ResponseHandler response) {
+								ResponseHandler response) {
 		ServiceResult serviceResult = detailsByFind(config, transactionId, creationDate, sequenceNumber);
 
 		handleResponse(response, serviceResult);
+
+		return serviceResult;
+	}
+
+	/**
+	 * Get all the details of an existing transaction using the order Id<p> As the order Id is not unique, we can have
+	 * several transactions as response.
+	 * <p>
+	 * Please read official documentation for more detailed information about
+	 * parameter content.
+	 *
+	 * @param orderId
+	 *            the transaction id number
+	 * @param response
+	 *            callback handler to work with the response
+	 * @return result with all the response objects
+	 *
+	 * @see Payment#details(String, ResponseHandler, Map[])
+	 */
+	ServiceResult detailsByFind(Map<String, String> config, String orderId,
+								ResponseHandler response) {
+		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
+
+		QueryRequest queryRequest = new QueryRequest();
+		queryRequest.setOrderId(orderId);
+
+		FindPaymentsResponse.FindPaymentsResult detailsResponse = api.findPayments(queryRequest);
+
+		ServiceResult serviceResult = new ServiceResult(detailsResponse);
+
+		handleResponse(response, serviceResult);
+
+		return serviceResult;
+	}
+
+	/**
+	 * Get all the details of an existing transaction using the order Id<p> As the order Id is not unique, we can have
+	 * several transactions as response.
+	 * <p>
+	 * Please read official documentation for more detailed information about
+	 * parameter content.
+	 *
+	 * @param orderId
+	 *            the transaction id number
+	 *
+	 * @return result with all the response objects
+	 *
+	 * @see Payment#details(String, ResponseHandler, Map[])
+	 */
+	ServiceResult detailsByFind(Map<String, String> config, String orderId) {
+		PaymentAPI api = new ClientV5(config).getPaymentAPIImplPort();
+
+		QueryRequest queryRequest = new QueryRequest();
+		queryRequest.setOrderId(orderId);
+
+		FindPaymentsResponse.FindPaymentsResult detailsResponse = api.findPayments(queryRequest);
+
+		ServiceResult serviceResult = new ServiceResult(detailsResponse);
 
 		return serviceResult;
 	}

@@ -224,6 +224,35 @@ public final class Payment {
 	public static ServiceResult details(String transactionId, Date creationDate, int sequenceNumber, ResponseHandler response, Map<String, String> ... config) {
         return getInstance().detailsByFind((config.length>0)?config[0]:null, transactionId, creationDate, sequenceNumber, response);
     }
+
+    /**
+     * Get all the details of an existing transaction using the order Id<p> As the order Id is not unique, we can have
+     * several transactions as response.
+     * Please read official documentation for more detailed information about parameter content.
+     *
+     * @param orderId the order Id
+     * @param config OPTIONAL, allows to override configuration at runtime
+     * @return result with all the response objects
+     */
+    @SafeVarargs
+    public static ServiceResult detailsByOrderId(String orderId, Map<String, String> ... config) {
+        return getInstance().detailsByFind((config.length>0)?config[0]:null, orderId);
+    }
+
+    /**
+     * Get all the details of an existing transaction using the order Id<p> As the order Id is not unique, we can have
+     * several transactions as response.
+     * Please read official documentation for more detailed information about parameter content.
+     *
+     * @param orderId the order Id
+     * @param response callback handler to work with the response
+     * @param config OPTIONAL, allows to override configuration at runtime
+     * @return result with all the response objects
+     */
+    @SafeVarargs
+    public static ServiceResult detailsByOrderId(String orderId, ResponseHandler response, Map<String, String> ... config) {
+        return getInstance().detailsByFind((config.length>0)?config[0]:null, orderId, response);
+    }
     
     /**
      * Cancel an existing transaction using the UUID of the transaction<p>

@@ -19,6 +19,8 @@ import com.lyra.vads.ws.v5.*;
 import com.lyra.vads.ws.v5.RefundPaymentResponse.RefundPaymentResult;
 import eu.payzen.webservices.sdk.util.Config;
 
+import java.util.List;
+
 /**
  * Result object that encapsulates the response of a Payzen Web Service.
  * 
@@ -40,6 +42,7 @@ public final class ServiceResult {
     private FraudManagementResponse fraudManagementResponse = null;
     private MarkResponse markResponse = null;
     private SubscriptionResponse subscriptionResponse = null;
+    private List<TransactionItem> transactionItems = null;
     private String serviceSessionId = null;
 
     public ServiceResult(CreatePaymentResponse.CreatePaymentResult createPaymentResult, String httpSessionId) {
@@ -132,6 +135,12 @@ public final class ServiceResult {
         fraudManagementResponse = createTokenFromTransactionResult.getFraudManagementResponse();
     }
 
+    public ServiceResult(FindPaymentsResponse.FindPaymentsResult findPaymentsResult) {
+        commonResponse = findPaymentsResult.getCommonResponse();
+        orderResponse = findPaymentsResult.getOrderResponse();
+        transactionItems = findPaymentsResult.getTransactionItem();
+    }
+
     public CommonResponse getCommonResponse() {
         return commonResponse;
     }
@@ -187,6 +196,8 @@ public final class ServiceResult {
     public SubscriptionResponse getSubscriptionResponse() {
         return subscriptionResponse;
     }
+
+    public List<TransactionItem> getTransactionItems() { return transactionItems; }
 
     public String getWebServiceSession() {
         return serviceSessionId;
