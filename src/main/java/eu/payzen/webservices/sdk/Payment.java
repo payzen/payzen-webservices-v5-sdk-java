@@ -351,7 +351,8 @@ public final class Payment {
      * 
      * Please read official documentation for more detailed information about parameter content.
      * 
-     * @paramcreatePaymentRequest complex object with all the parameters for service call
+     * @param uuidTransaction unique identifier of the transaction
+     * @param captureDate the new capture date for the transaction
      * @param response callback handler to work with the response
      * @param config OPTIONAL, allows to override configuration at runtime
      * @return result with all the response objects
