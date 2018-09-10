@@ -27,6 +27,13 @@ public class TechRequestBuilder {
     private String browserAccept;
     private String integrationType;
 
+    private TechRequestBuilder() {
+    }
+
+    public static TechRequestBuilder create() {
+        return new TechRequestBuilder();
+    }
+
     public TechRequestBuilder browserUserAgent(String browserUserAgent) {
         this.browserUserAgent = browserUserAgent;
         return this;

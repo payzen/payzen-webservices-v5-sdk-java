@@ -30,6 +30,13 @@ public class ShoppingCartRequestBuilder {
     private Long taxAmount;
     private List<CartItemInfo> cartItemInfo;
 
+    private ShoppingCartRequestBuilder() {
+    }
+
+    public static ShoppingCartRequestBuilder create() {
+        return new ShoppingCartRequestBuilder();
+    }
+
     public void setInsuranceAmount(Long insuranceAmount) {
         this.insuranceAmount = insuranceAmount;
     }
