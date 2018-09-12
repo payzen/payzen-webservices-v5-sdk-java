@@ -33,6 +33,8 @@ public class CustomerRequestBuilder {
     private ShippingDetailsRequest shippingDetailsRequest;
     private ExtraDetailsRequest extraDetailsRequest;
 
+    public static CustomerRequestBuilder create() { return new CustomerRequestBuilder(); }
+
     public CustomerRequestBuilder billingDetailsRequest(BillingDetailsRequest billingDetailsRequest) {
         this.billingDetailsRequest = billingDetailsRequest;
         return this;
@@ -78,6 +80,8 @@ public class CustomerRequestBuilder {
         private String cellPhoneNumber;
         private String legalName;
         private String identityCode;
+
+        public static BillingDetailsRequestBuilder create() { return new BillingDetailsRequestBuilder(); }
 
         public BillingDetailsRequestBuilder reference(String reference) {
             this.reference = reference;
@@ -215,6 +219,8 @@ public class CustomerRequestBuilder {
         private String legalName;
         private String identityCode;
 
+        public static ShippingDetailsRequestBuilder create() { return new ShippingDetailsRequestBuilder(); }
+
         public ShippingDetailsRequestBuilder type(CustStatus type) {
             this.type = type;
             return this;
@@ -329,6 +335,8 @@ public class CustomerRequestBuilder {
 
         private String ipAddress;
         private String fingerPrintId;
+
+        public static ExtraDetailsRequestBuilder create() { return new ExtraDetailsRequestBuilder(); }
 
         public ExtraDetailsRequestBuilder ipAddress(String ipAddress) {
             this.ipAddress = ipAddress;
