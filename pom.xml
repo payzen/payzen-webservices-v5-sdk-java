@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.payzen.sdk</groupId>
 	<artifactId>payzen-ws-sdk</artifactId>
-	<version>1.1.2</version>
+	<version>1.2.0</version>
 	<packaging>jar</packaging>
 
 	<name>Payzen Webservices SDK</name>

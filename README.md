@@ -10,11 +10,11 @@ To use this SDK in your Java project:
 
 If you use Maven or other software project management tool, you will find the dependency here:
 
-http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.1.2
+http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.2.0
 
 Instead, you can download manually the last version here:
 
-http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.1.2/payzen-ws-sdk-1.1.2.jar
+http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.2.0/payzen-ws-sdk-1.2.0.jar
 
 In this last case, you have to add manually the dependencies:
 
