@@ -22,14 +22,17 @@ import java.util.Map;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 import com.lyra.vads.ws.v5.PaymentAPI;
 
+import com.sun.xml.ws.client.BindingProviderProperties;
 import eu.payzen.webservices.sdk.handler.soap.HeaderHandlerResolver;
 import eu.payzen.webservices.sdk.util.Config;
 import eu.payzen.webservices.sdk.util.NullHostnameVerifier;
 import eu.payzen.webservices.sdk.util.PayzenHostnameVerifier;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Encapsulates the client WS to call Payment operations
@@ -41,7 +44,7 @@ public class ClientV5 {
 	private final PaymentAPI port;
 
 	public ClientV5(Map<String, String> config) {
-		// Read client properties - payzen-config.properties
+		// Read client properties - ws-sdk-config.properties
 		String shopId = getProperty("shopId", config);
 		String shopKey = getProperty("shopKey", config);
 		String mode = getProperty("mode", config);
@@ -52,9 +55,9 @@ public class ClientV5 {
 		String returnUrl = getProperty("returnUrl", config);
 		String ecsPaymentId = getProperty("ecsPaymentId", config);
 		String remoteId = getProperty("remoteId", config);
-		
-		
-		
+		String connectionTimeout = getProperty("connectionTimeout", config);
+		String requestTimeout = getProperty("requestTimeout", config);
+
 		String protocol = "https://";
 		if (!("true".equalsIgnoreCase(secureConnection))) {
 			protocol = "http://";
@@ -76,6 +79,11 @@ public class ClientV5 {
 			service.setHandlerResolver(new HeaderHandlerResolver(shopId, shopKey, mode, wsUser, returnUrl, ecsPaymentId, remoteId, config));
 			port = service.getPort(PaymentAPI.class);
 
+			//Set timeout values if necessary
+			if (StringUtils.isNotBlank(connectionTimeout) || StringUtils.isNotBlank(requestTimeout)) {
+				setTimeoutValues(port, connectionTimeout, requestTimeout);
+			}
+
 		}  catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
@@ -94,5 +102,18 @@ public class ClientV5 {
 		String value = (config != null && config.get(key) != null) ? config.remove(key)
 				:Config.getConfig().getProperty(key);
 		return value;
+	}
+
+	private void setTimeoutValues(PaymentAPI port, String connectionTimeout, String requestTimeout) {
+		BindingProvider bindingProvider = (BindingProvider)port;
+
+		if (StringUtils.isNotBlank(connectionTimeout)) {
+			bindingProvider.getRequestContext().put(BindingProviderProperties.CONNECT_TIMEOUT,
+					Integer.valueOf(connectionTimeout).intValue() * 1000);
+		}
+		if (StringUtils.isNotBlank(requestTimeout)) {
+			bindingProvider.getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT,
+					Integer.valueOf(requestTimeout).intValue() * 1000);
+		}
 	}
 }

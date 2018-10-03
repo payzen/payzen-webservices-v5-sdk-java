@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class Config {
     private static final Logger logger = LoggerFactory.getLogger(Config.class);
-   private static final String CONFIG_FILENAME = "payzen-config.properties";
+   private static final String CONFIG_FILENAME = "ws-sdk-config.properties";
    
    private static Properties config;   
 
