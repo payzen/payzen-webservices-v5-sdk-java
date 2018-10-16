@@ -10,11 +10,11 @@ To use this SDK in your Java project:
 
 If you use Maven or other software project management tool, you will find the dependency here:
 
-http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.2.0
+http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.3
 
 Instead, you can download manually the last version here:
 
-http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.2.0/payzen-ws-sdk-1.2.0.jar
+http://mvnrepository.com/artifact/eu.payzen.sdk/payzen-ws-sdk/1.3/payzen-ws-sdk-1.3.jar
 
 In this last case, you have to add manually the dependencies:
 
@@ -24,7 +24,7 @@ In this last case, you have to add manually the dependencies:
 
 Once all the dependencies of application are resolved, it is necessary to set up the config file.
 
-In order to do that you have to create a resource file called *payzen-config.properties* into your classpath and set the following configuration params:
+In order to do that you have to create a resource file called *ws-sdk-config.properties* into your classpath and set the following configuration params:
 
     shopId=[shop identifier]
     shopKey=[shop private key]
@@ -151,6 +151,4 @@ Really, it is that easy.
 
 - Download and import the project into your IDE or simply clone it from Git.
 
-- First time run from root directory: *mvn -Pgenerate-ws-stubs install*. This will generate/update all the web service stubs.
-
-- From that time, it is enough to execute *mvn install* each time to regenerate the library.
+- Execute *mvn install* each time to regenerate the library.
